@@ -72,10 +72,13 @@ def print_table(u, x, t=None, digits=4):
     Nt, Nx = u.shape
     R = np.empty((Nt + 2, Nx + 1), dtype=object)
     R[0, 0] = 'x'
-    R[0, 1:] = x.round(digits)
     R[-1, 0] = 'x'
-    R[-1, 1:] = x.round(digits)
-
+    try:
+        xround = x.round(digits)
+    except:
+        xround = x
+    R[0, 1:] = xround
+    R[-1, 1:] = xround
     R[1:-1, 1:] = np.array(u).round(digits)
     for j in range(len(u)):
         if t is not None:
